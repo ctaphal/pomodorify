@@ -1,2 +1,2 @@
-# Pomodorify
-Pomodoro app integrated with Spotify to allow users to select custom music
+Pomodoro app integrated with Spotify API so users can select custom music/playlists
+(UNDER DEVELOPMENT)
