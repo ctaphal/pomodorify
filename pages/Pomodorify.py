@@ -95,8 +95,8 @@ def animation_demo() -> None:
 
 load_dotenv()
 
-client_id = st.secrets["CLIENT_ID"]
-client_secret = st.secrets["CLIENT_SECRET"]
+client_id = st.secrets.CLIENT_ID
+client_secret = st.secrets.CLIENT_SECRET
 
 token = get_token()
 st.markdown(token)
