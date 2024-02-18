@@ -14,9 +14,31 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
+from dotenv import load_dotenv
+import os
+import base64
+from requests import post
+import json
 
 LOGGER = get_logger(__name__)
 
+def get_token():
+    auth_string = client_id+":"+client_secret
+    auth_bytes = auth_string.encode("utf-8")
+    auth_base64 = str(base64.b64encode(auth_bytes),"utf-8")
+    
+    url = "https://accounts.spotify.com/api/token"
+    header = {
+        "Authorization": "Basic " + auth_base64,
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+    dat = {"grant-type": "client_credentials"}
+    result = post(url, headers=header, data=dat)
+    st.markdown(result)
+    json_result = json.loads(result.content)
+    token = json_result["access_token"]
+    return token
 
 def run():
     st.set_page_config(
@@ -49,3 +71,10 @@ def run():
 
 if __name__ == "__main__":
     run()
+    load_dotenv()
+
+    client_id = st.secrets.CLIENT_ID
+    client_secret = st.secrets.CLIENT_SECRET
+
+    token = get_token()
+    st.markdown(token)
